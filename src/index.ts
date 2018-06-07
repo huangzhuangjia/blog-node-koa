@@ -8,6 +8,7 @@ import router from './route'
 import * as mongodb from './mongodb'
 
 import interceptor from './middleWares/interceptor'
+import initAdmin from './middleWares/initAdmin'
 
 const app = new Koa()
 
@@ -22,6 +23,7 @@ app.use(async (ctx, next) => {
 })
 // middleware
 app.use(interceptor)
+app.use(initAdmin)
 
 app.use(helmet())
 // 处理文件上传

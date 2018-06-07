@@ -1,11 +1,11 @@
 const argv = require('yargs').argv
 
 export const MONGODB = {
-  uri: `mongodb://127.0.0.1:${argv.dbport || '27017'}/my_blog`,
+  uri: `mongodb://127.0.0.1:${argv.dbport || '27017'}/blog`,
   username: argv.db_username || 'DB_username',
   password: argv.db_password || 'DB_password'
 }
-export const AUTH = {
+export const AUTH = { // 设置初始用户密码
   jwtTokenSecret: argv.auth_key || 'my_blog',
   defaultUsername: argv.auth_default_username || 'junga',
   defaultPassword: argv.auth_default_password || '123456'
