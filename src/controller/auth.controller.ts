@@ -48,7 +48,7 @@ export default class AuthController {
    */
   public static async userInfo (ctx: Context) {
     const auth = await Auth
-                      .findOne({}, 'name username slogan gravatar')
+                      .findOne({}, 'username gravatar')
                       .catch(err => ctx.throw(500, '服务器内部错误'))
     if (auth) {
       handleSuccess({ ctx, result: auth, message: '获取用户资料成功' })
