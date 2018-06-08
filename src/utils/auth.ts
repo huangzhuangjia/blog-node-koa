@@ -6,9 +6,9 @@ import { Context } from 'koa'
 import config = require('../config')
 
 // 验证Auth
-const authToken = (req: Context) => {
-  if (req.request.headers && req.request.headers.authorization) {
-    const parts = req.request.headers.authorization.split(' ')
+const authToken = (ctx: Context) => {
+  if (ctx.request.headers && ctx.request.headers.authorization) {
+    const parts = ctx.request.headers.authorization.split(' ')
     if (Object.is(parts.length, 2) && Object.is(parts[0], 'Bearer')) {
       return parts[1]
     }
@@ -17,8 +17,8 @@ const authToken = (req: Context) => {
 }
 
 // 验证权限
-const authIsVerified = (req: Context) => {
-  const token = authToken(req)
+const authIsVerified = (ctx: Context) => {
+  const token = authToken(ctx)
   if (token) {
     try {
       const decodedToken = jwt.verify(token, config.AUTH.jwtTokenSecret)

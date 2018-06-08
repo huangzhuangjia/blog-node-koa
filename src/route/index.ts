@@ -12,5 +12,6 @@ router
   })
   .post('/login', controller.auth.login)
   .get('/getUserInfo', controller.auth.userInfo)
+  .get('/logout', controller.auth.logout)
 
 export default router

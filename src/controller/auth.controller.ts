@@ -22,9 +22,7 @@ export default class AuthController {
    */
   public static async login (ctx: Context) {
     const { username, password } = ctx.request.body
-    console.log(ctx.request.body)
     // 查找用户信息
-    console.log(Auth)
     const auth = (await Auth
                   .findOne({ username })) as IAuth | null
     if (auth) {
@@ -32,7 +30,7 @@ export default class AuthController {
         const token = jwt.sign({ // 用户信息签名加密生成token
           username: auth.username,
           password: auth.password,
-          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7)
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7) // 设置过期时间
         }, config.AUTH.jwtTokenSecret)
         handleSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7) }, message: "登陆成功" })
       } else {
@@ -53,5 +51,12 @@ export default class AuthController {
     if (auth) {
       handleSuccess({ ctx, result: auth, message: '获取用户资料成功' })
     } else handleError({ ctx, message: "获取用户资料失败" })
+  }
+  /**
+   * 用户退出
+   * @param ctx
+   */
+  public static async logout (ctx: Context) {
+    handleSuccess({ ctx, result: null, message: '退出成功' })
   }
 }

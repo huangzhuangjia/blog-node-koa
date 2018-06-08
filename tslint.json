@@ -101,7 +101,7 @@
     "no-invalid-this": false,
 
     // 不允许使用null,使用undefined代替null，指代空指针对象
-    "no-null-keyword": true,
+    "no-null-keyword": false,
 
     // 不允许 array 中有空元素
     "no-sparse-arrays": true,
