@@ -17,12 +17,6 @@ const app = new Koa()
 mongodb.connect()
 // 访问日志打印
 app.use(logger())
-// app.use(async (ctx, next) => {
-//   const start = new Date()
-//   await next()
-//   const ms = new Date().getDate() - start.getDate()
-//   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-// })
 // 拦截器
 app.use(interceptor)
 // 初始化管理员
