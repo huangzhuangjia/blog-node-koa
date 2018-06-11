@@ -10,8 +10,8 @@ router
   .get('/', (ctx, next) => {
     ctx.response.body = config.INFO
   })
-  .post('/login', controller.auth.login)
-  .get('/getUserInfo', controller.auth.userInfo)
-  .get('/logout', controller.auth.logout)
+  .post('/login', controller.auth.login)                      // 用户登录
+  .get('/getUserInfo', controller.auth.userInfo)              // 获取用户信息
+  .get('/logout', controller.auth.logout)                     // 用户登出
 
 export default router

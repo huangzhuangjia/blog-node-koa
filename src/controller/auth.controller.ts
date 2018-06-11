@@ -6,6 +6,7 @@ import * as config from '../config'
 import { handleSuccess, IParams, handleError } from '../utils/handle'
 
 import Auth, { IAuth } from '../model/auth.model'
+import AuthService from '../services/auth'
 
 // md5 编码
 const md5Decode = (pwd: string | Buffer | DataView) => {
@@ -21,12 +22,10 @@ export default class AuthController {
    * @param ctx
    */
   public static async login (ctx: Context) {
-    const { username, password } = ctx.request.body
-    // 查找用户信息
-    const auth = (await Auth
-                  .findOne({ username })) as IAuth | null
+    const data = ctx.request.body
+    const auth = await AuthService.login(data)
     if (auth) {
-      if (auth.password === md5Decode(password)) {
+      if (auth.password === md5Decode(data.password)) {
         const token = jwt.sign({ // 用户信息签名加密生成token
           username: auth.username,
           password: auth.password,
@@ -45,9 +44,7 @@ export default class AuthController {
    * @param ctx
    */
   public static async userInfo (ctx: Context) {
-    const auth = await Auth
-                      .findOne({}, 'username gravatar')
-                      .catch(err => ctx.throw(500, '服务器内部错误'))
+    const auth = await AuthService.getUserInfo(ctx)
     if (auth) {
       handleSuccess({ ctx, result: auth, message: '获取用户资料成功' })
     } else handleError({ ctx, message: "获取用户资料失败" })

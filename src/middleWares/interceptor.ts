@@ -43,15 +43,14 @@ export default async (ctx: Context, next: () => Promise<any>) => {
   // 排除auth的post请求 && 评论的post请求 && like post请求 && hero post
   // const isLike = Object.is(ctx.request.url, '/api/like') && Object.is(ctx.request.method, 'POST')
   // const isPostAuth = Object.is(ctx.request.url, '/api/auth') && Object.is(ctx.request.method, 'POST')
-  // const isLogin = Object.is(ctx.request.url, '/api/login') && Object.is(ctx.request.method, 'POST')
+  const isLogin = Object.is(ctx.request.url, '/api/login') && Object.is(ctx.request.method, 'POST')
   // const isHero = Object.is(ctx.request.url, '/api/hero') && Object.is(ctx.request.method, 'POST')
   // const isPostComment = Object.is(ctx.request.url, '/api/comment') && Object.is(ctx.request.method, 'POST')
-  // if (isLike || isPostAuth || isPostComment || isLogin || isHero) {
-  //   await next()
-  //   return false
-  // }
+  if (isLogin) {
+    await next()
+    return false
+  }
   // 验证用户
-  console.log(ctx.method)
   if (!authIsVerified(ctx)) {
     ctx.throw(401, { code: -2, message: '身份验证失败！' })
     return false

@@ -8,7 +8,7 @@ import * as config from '../config'
 export interface IAuth extends Document {
   username: string,
   password: string,
-  gravatar: string
+  gravatar?: string
 }
 
 const authSchema = new db.Schema({
