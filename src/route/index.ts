@@ -13,5 +13,7 @@ router
   .post('/login', controller.auth.login)                      // 用户登录
   .get('/getUserInfo', controller.auth.userInfo)              // 获取用户信息
   .get('/logout', controller.auth.logout)                     // 用户登出
+   // 文章
+  .post('/article', controller.article.postArt)
 
 export default router

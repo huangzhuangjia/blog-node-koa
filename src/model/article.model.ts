@@ -5,11 +5,18 @@ import { Document, Schema } from 'mongoose'
 import * as paginate from 'mongoose-paginate'
 import * as autoIncrement from 'mongoose-auto-increment'
 
+// 自增ID初始化
+autoIncrement.initialize(db.connection)
+
 export interface IArticle extends Document {
   // 标题
   title: string,
   // 内容
   content: string
+  // 状态 1 发布 2 草稿
+  state: number
+  // 文章公开状态 1 公开 2 私密
+  publish: number
   // 发布日期
   create_at: Date
   // 最后修改日期
@@ -26,6 +33,16 @@ const ArticleSchema: Schema = new db.Schema({
   content: {
     type: String,
     required: true
+  },
+  // 状态 1 发布 2 草稿
+  state: {
+    type: Number,
+    default: 1
+  },
+  // 文章公开状态 1 公开 2 私密
+  publish: {
+    type: Number,
+    default: 1
   },
   // 发布日期
   create_at: {
